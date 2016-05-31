@@ -6,5 +6,7 @@ npm-debug.log
 
 public
 
+.coveralls.yml
+
 coverage
 .nyc_output

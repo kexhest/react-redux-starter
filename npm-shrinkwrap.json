@@ -1,5 +1,5 @@
 {
-  "name": "react-redux-jwt-starter",
+  "name": "react-redux-starter",
   "version": "1.0.0",
   "dependencies": {
     "abab": {
@@ -103,6 +103,11 @@
       "version": "1.0.7",
       "from": "argparse@>=1.0.7 <2.0.0",
       "resolved": "https://registry.npmjs.org/argparse/-/argparse-1.0.7.tgz"
+    },
+    "argv": {
+      "version": "0.0.2",
+      "from": "argv@>=0.0.2",
+      "resolved": "https://registry.npmjs.org/argv/-/argv-0.0.2.tgz"
     },
     "arr-diff": {
       "version": "2.0.0",
@@ -213,11 +218,6 @@
       "version": "0.2.0",
       "from": "assert-plus@>=0.2.0 <0.3.0",
       "resolved": "https://registry.npmjs.org/assert-plus/-/assert-plus-0.2.0.tgz"
-    },
-    "assertion-error": {
-      "version": "1.0.1",
-      "from": "assertion-error@>=1.0.1 <2.0.0",
-      "resolved": "https://registry.npmjs.org/assertion-error/-/assertion-error-1.0.1.tgz"
     },
     "async": {
       "version": "1.5.2",
@@ -994,11 +994,6 @@
       "from": "center-align@>=0.1.1 <0.2.0",
       "resolved": "https://registry.npmjs.org/center-align/-/center-align-0.1.3.tgz"
     },
-    "chai": {
-      "version": "3.5.0",
-      "from": "chai@>=1.9.2 <4.0.0",
-      "resolved": "https://registry.npmjs.org/chai/-/chai-3.5.0.tgz"
-    },
     "chalk": {
       "version": "1.1.3",
       "from": "chalk@>=1.0.0 <2.0.0",
@@ -1138,6 +1133,11 @@
       "version": "1.0.0",
       "from": "code-point-at@>=1.0.0 <2.0.0",
       "resolved": "https://registry.npmjs.org/code-point-at/-/code-point-at-1.0.0.tgz"
+    },
+    "codecov": {
+      "version": "1.0.1",
+      "from": "codecov@latest",
+      "resolved": "https://registry.npmjs.org/codecov/-/codecov-1.0.1.tgz"
     },
     "color": {
       "version": "0.11.1",
@@ -1451,18 +1451,6 @@
       "version": "1.2.0",
       "from": "decamelize@>=1.1.2 <2.0.0",
       "resolved": "https://registry.npmjs.org/decamelize/-/decamelize-1.2.0.tgz"
-    },
-    "deep-eql": {
-      "version": "0.1.3",
-      "from": "deep-eql@>=0.1.3 <0.2.0",
-      "resolved": "https://registry.npmjs.org/deep-eql/-/deep-eql-0.1.3.tgz",
-      "dependencies": {
-        "type-detect": {
-          "version": "0.1.1",
-          "from": "type-detect@0.1.1",
-          "resolved": "https://registry.npmjs.org/type-detect/-/type-detect-0.1.1.tgz"
-        }
-      }
     },
     "deep-equal": {
       "version": "1.0.1",
@@ -1908,6 +1896,11 @@
       "version": "1.1.0",
       "from": "events@>=1.0.0 <2.0.0",
       "resolved": "https://registry.npmjs.org/events/-/events-1.1.0.tgz"
+    },
+    "execSync": {
+      "version": "1.0.2",
+      "from": "execSync@1.0.2",
+      "resolved": "https://registry.npmjs.org/execSync/-/execSync-1.0.2.tgz"
     },
     "exit-hook": {
       "version": "1.1.1",
@@ -3980,11 +3973,6 @@
       "from": "nested-error-stacks@>=1.0.0 <2.0.0",
       "resolved": "https://registry.npmjs.org/nested-error-stacks/-/nested-error-stacks-1.0.2.tgz"
     },
-    "nock": {
-      "version": "8.0.0",
-      "from": "nock@latest",
-      "resolved": "https://registry.npmjs.org/nock/-/nock-8.0.0.tgz"
-    },
     "node-fetch": {
       "version": "1.5.3",
       "from": "node-fetch@>=1.0.1 <2.0.0",
@@ -5919,11 +5907,6 @@
       "from": "promise@>=6.0.1 <7.0.0",
       "resolved": "https://registry.npmjs.org/promise/-/promise-6.1.0.tgz"
     },
-    "propagate": {
-      "version": "0.4.0",
-      "from": "propagate@0.4.0",
-      "resolved": "https://registry.npmjs.org/propagate/-/propagate-0.4.0.tgz"
-    },
     "proxy-addr": {
       "version": "1.0.10",
       "from": "proxy-addr@>=1.0.10 <1.1.0",
@@ -6754,6 +6737,23 @@
       "from": "tar@>=2.0.0 <3.0.0",
       "resolved": "https://registry.npmjs.org/tar/-/tar-2.2.1.tgz"
     },
+    "temp": {
+      "version": "0.5.1",
+      "from": "temp@>=0.5.1 <0.6.0",
+      "resolved": "https://registry.npmjs.org/temp/-/temp-0.5.1.tgz",
+      "dependencies": {
+        "graceful-fs": {
+          "version": "1.2.3",
+          "from": "graceful-fs@>=1.0.0 <2.0.0",
+          "resolved": "https://registry.npmjs.org/graceful-fs/-/graceful-fs-1.2.3.tgz"
+        },
+        "rimraf": {
+          "version": "2.1.4",
+          "from": "rimraf@>=2.1.4 <2.2.0",
+          "resolved": "https://registry.npmjs.org/rimraf/-/rimraf-2.1.4.tgz"
+        }
+      }
+    },
     "text-table": {
       "version": "0.2.0",
       "from": "text-table@>=0.2.0 <0.3.0",
@@ -6944,11 +6944,6 @@
       "from": "type-check@>=0.3.2 <0.4.0",
       "resolved": "https://registry.npmjs.org/type-check/-/type-check-0.3.2.tgz"
     },
-    "type-detect": {
-      "version": "1.0.0",
-      "from": "type-detect@>=1.0.0 <2.0.0",
-      "resolved": "https://registry.npmjs.org/type-detect/-/type-detect-1.0.0.tgz"
-    },
     "type-is": {
       "version": "1.6.13",
       "from": "type-is@>=1.6.12 <1.7.0",
@@ -7069,6 +7064,11 @@
       "version": "1.0.0",
       "from": "url-parse-lax@>=1.0.0 <2.0.0",
       "resolved": "https://registry.npmjs.org/url-parse-lax/-/url-parse-lax-1.0.0.tgz"
+    },
+    "urlgrey": {
+      "version": "0.4.1",
+      "from": "urlgrey@>=0.4.0",
+      "resolved": "https://registry.npmjs.org/urlgrey/-/urlgrey-0.4.1.tgz"
     },
     "user-home": {
       "version": "1.1.1",

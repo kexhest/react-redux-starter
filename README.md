@@ -4,8 +4,8 @@ React redux JWT starter
 > Just another react redux starter pack. With a simple auth example app using JSON web tokens.
 > The example app is not hooked against any database, users and secret are defined in the .env file.
 
-[![Build Status](https://img.shields.io/travis/magnus-bergman/react-redux-starter/master.svg?style=flat)](https://travis-ci.org/magnus-bergman/react-redux-starter)
-[![Coverage Status](https://coveralls.io/repos/github/magnus-bergman/react-redux-starter/badge.svg?branch=master)](https://coveralls.io/github/magnus-bergman/react-redux-starter)
+[![Build Status](https://travis-ci.org/magnus-bergman/react-redux-starter.svg?branch=master)](https://travis-ci.org/magnus-bergman/react-redux-starter)
+[![codecov](https://codecov.io/gh/magnus-bergman/react-redux-starter/branch/master/graph/badge.svg)](https://codecov.io/gh/magnus-bergman/react-redux-starter)
 
 ## Installation
 If you've never used Node or npm before, you'll need to install Node.

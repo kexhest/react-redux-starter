@@ -1,0 +1,37 @@
+@import '~utils/__utils';
+
+.form-checkbox {
+  position: relative;
+  width: 24px;
+  height: 24px;
+
+  border-radius: 50%;
+
+  border: 2px solid $color-contrast-rich;
+
+  &.error { border-color: $color-error; }
+
+  input { @extend %screen-reader-only; }
+
+  span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    width: 16px;
+    height: 16px;
+
+    border-radius: 50%;
+
+    opacity: 0;
+
+    background-color: $color-contrast-rich;
+
+    transform: translate(-8px, -8px);
+    // transition: opacity 100ms;
+  }
+
+  input:checked ~ span {
+    opacity: 1;
+  }
+}

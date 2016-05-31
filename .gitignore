@@ -1,0 +1,10 @@
+.DS_Store
+.tags*
+
+node_modules
+npm-debug.log
+
+public
+
+coverage
+.nyc_output

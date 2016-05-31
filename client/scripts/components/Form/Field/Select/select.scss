@@ -1,0 +1,31 @@
+@import '~utils/__utils';
+
+.form-select {
+  position: relative;
+
+  select {
+    display: block;
+
+    width: 100%;
+    height: 3em;
+
+    margin: .2em 0 .4em;
+    padding: .5em;
+
+    border-radius: 0;
+    border: 2px solid $color-contrast-rich;
+
+    &.error { border-color: $color-error; }
+  }
+}
+
+.form-select-arrow {
+  position: absolute;
+  top: 50%;
+
+  right: 1em;
+  width: 1em;
+
+  transform-origin: 50% 28%;
+  transform: translate(-50%, 0) rotate(180deg);
+}

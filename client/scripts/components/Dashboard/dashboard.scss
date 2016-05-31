@@ -1,0 +1,13 @@
+@import '~utils/__utils';
+
+.dashboard {
+  button {
+    margin: 1em 0;
+
+    padding: .5em 1em;
+
+    color: $color-contrast-rich;
+
+    background: $color-base;
+  }
+}

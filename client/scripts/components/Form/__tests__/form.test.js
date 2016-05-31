@@ -215,6 +215,18 @@ test('Form:setFieldStatus updates errors and validity in state.errors and state.
   t.false(wrapper.state('form')[name].valid)
 })
 
+test('Form:reset calls preventDefault and stopPropagation if event is passed', t => {
+  const event = {
+    preventDefault: sinon.spy(),
+    stopPropagation: sinon.spy()
+  }
+
+  component.reset(event)
+
+  t.true(event.preventDefault.calledOnce)
+  t.true(event.stopPropagation.calledOnce)
+})
+
 test('Form:reset resets all form values', t => {
   t.is(wrapper.state('form').test.value, props.fields[0].value)
   t.is(wrapper.state('form').test2.value, props.fields[1].value)

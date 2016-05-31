@@ -12,7 +12,7 @@ const create = (req, res) => {
       user
     })
   } else {
-    res.status(401).json({ message: 'Nope!' })
+    res.status(401).json({error: {message: 'Nope!'}})
   }
 }
 

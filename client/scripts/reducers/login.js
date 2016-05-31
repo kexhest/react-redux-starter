@@ -58,7 +58,7 @@ export default function (state = initialState, { type, payload }) {
     case LOGIN_FAILURE:
       return {
         ...state,
-        error: payload.meta.error,
+        error: payload.error,
         sending: false
       }
 

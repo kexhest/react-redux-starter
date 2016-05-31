@@ -60,15 +60,15 @@ test.serial('Reducer:Login responds to LOGIN_FAILURE', t => {
   const action = {
     type: actions.LOGIN_FAILURE,
     payload: {
-      meta: {
-        error: 'Something went wrong'
+      error: {
+        message: 'Something went wrong'
       }
     }
   }
 
   const expected = {
     ...initialState,
-    error: action.payload.meta.error,
+    error: action.payload.error,
     sending: false
   }
 

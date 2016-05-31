@@ -5,11 +5,17 @@ const utils = require('../utils')
 
 const all = () => users
 
-const find = id =>
-  utils.cleanUser(users.find(usr => usr.id === id))
+const find = id => {
+  const user = users.find(usr => usr.id === id)
 
-const findBy = (key, value) =>
-  utils.cleanUser(users.find(usr => usr[key] === value))
+  return user && utils.cleanUser(user)
+}
+
+const findBy = (key, value) => {
+  const user = users.find(usr => usr[key] === value)
+
+  return user && utils.cleanUser(user)
+}
 
 module.exports = {
   all,

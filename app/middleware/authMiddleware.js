@@ -26,9 +26,7 @@ const validateToken = () => {
 
       return res
         .status(401)
-        .json({
-          message: 'No no no, what you playing at?!.'
-        })
+        .json({error: {message: 'No no no, what you playing at?!.'}})
     })
   }
 

@@ -9,6 +9,8 @@ cache:
   directories:
     - node_modules
 
-script: npm run coverage:test
+script:
+  - npm run coverage:test
 
-after_success: npm run coverage:report
+after_success:
+  - npm run coverage:report

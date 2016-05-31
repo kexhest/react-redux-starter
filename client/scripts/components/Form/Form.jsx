@@ -46,6 +46,8 @@ export default class Form extends Component {
         valid: false
       }
     })
+
+    if (props.error) this.state.error = props.error
   }
 
   /**

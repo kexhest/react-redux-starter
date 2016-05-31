@@ -7,6 +7,7 @@ import { shallow } from 'enzyme'
 import Form from '../Form'
 
 import Field from '../Field/Field'
+import Message from '../Message/Message'
 
 const props = {
   legend: 'test form',
@@ -57,7 +58,7 @@ const props = {
     confirm: 'The value must match [label]'
   },
   sending: false,
-  errors: {},
+  error: {},
   onSubmit: sinon.spy()
 }
 
@@ -95,6 +96,21 @@ test('Form does not render any legend if it is omitted from props', t => {
 
   wrapper = shallow(<Form {...noLegend} />)
   t.is(wrapper.find('legend').length, 0)
+})
+
+test('Form renders an error message if error.message is set in props', t => {
+  const errorProps = {
+    ...props,
+    error: {
+      message: 'there was an error'
+    }
+  }
+
+  t.is(wrapper.find(Message).length, 0)
+
+  wrapper = shallow(<Form {...errorProps} />)
+
+  t.is(wrapper.find(Message).length, 1)
 })
 
 test('Form renders the same ammount of fields as specified in props', t => {
@@ -135,6 +151,18 @@ test('Form does not call props.onSubmit if there is an error in state.error', t 
   component.onSubmit()
 
   t.true(props.onSubmit.notCalled)
+})
+
+test('Form:onSubmit calls preventDefault and stopPropagation if event is passed', t => {
+  const event = {
+    preventDefault: sinon.spy(),
+    stopPropagation: sinon.spy()
+  }
+
+  component.onSubmit(event)
+
+  t.true(event.preventDefault.calledOnce)
+  t.true(event.stopPropagation.calledOnce)
 })
 
 test('Form calls props.onSubmit with data if not props.sending and no state.error', t => {
@@ -236,7 +264,6 @@ test('Form:validate returns true and calls Form:setFieldStatus without error if 
   t.true(component.validate(name, label, value, required))
   t.true(component.setFieldStatus.calledWith(name, value, false))
 })
-
 
 test('Form:validate returns false and calls Form:setFieldStatus with error if value does not match constraints', t => {
   const field = {

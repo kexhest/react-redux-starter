@@ -5,6 +5,8 @@
 
 [![Build Status](https://travis-ci.org/magnus-bergman/react-redux-starter.svg?branch=master)](https://travis-ci.org/magnus-bergman/react-redux-starter)
 [![codecov](https://codecov.io/gh/magnus-bergman/react-redux-starter/branch/master/graph/badge.svg)](https://codecov.io/gh/magnus-bergman/react-redux-starter)
+[![dependencies](https://david-dm.org/magnus-bergman/react-redux-starter.svg)](https://david-dm.org/magnus-bergman/react-redux-starter)
+[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
 
 ## Installation
 If you've never used Node or npm before, you'll need to install Node.

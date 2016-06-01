@@ -1,5 +1,4 @@
-React redux JWT starter
-==================
+# React Redux Starter
 
 > Just another react redux starter pack. With a simple auth example app using JSON web tokens.
 > The example app is not hooked against any database. Users and secret are defined in the .env file.
@@ -49,4 +48,4 @@ npm test
 This repo follows the [standard](https://github.com/feross/standard) javascript coding style guide. It also includes some default editor settings using [editor config](https://github.com/sindresorhus/editorconfig-sublime).
 
 ## License
-React redux JWT starter is licensed under [The MIT License (MIT)](LICENSE).
+React Redux Starter is licensed under [The MIT License (MIT)](LICENSE).

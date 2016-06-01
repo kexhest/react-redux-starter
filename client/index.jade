@@ -29,7 +29,7 @@ html(lang="en")
       style !{compilation.assets[filePath.substr(htmlWebpackPlugin.files.publicPath.length)].source()}
 
   body
-    div(id="root")
+    #root
 
   each filePath in htmlWebpackPlugin.files.js
       script(defer, src=filePath)

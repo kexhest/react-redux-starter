@@ -1,5 +1,5 @@
 /*
- * This file is part of the React redux JWT starter.
+ * This file is part of the React Redux starter repo.
  *
  * (c) Magnus Bergman <hello@magnus.sexy>
  *

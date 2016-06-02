@@ -14,9 +14,13 @@ import {
   LOGOUT_SUCCESS
 } from 'actions/actions'
 
-const { localStorage } = window
-
-const token = localStorage.getItem('token')
+const token = (() => {
+  try {
+    return window.localStorage.getItem('token')
+  } catch (err) {
+    console.log(err)
+  }
+})()
 
 const initialState = {
   isAuthenticated: !!token,
@@ -30,7 +34,11 @@ export default function (state = initialState, { type, payload }) {
   switch (type) {
 
     case LOGIN_SUCCESS:
-      localStorage.setItem('token', payload.token)
+      try {
+        window.localStorage.setItem('token', payload.token)
+      } catch (err) {
+        console.log(err)
+      }
 
       return {
         ...state,
@@ -41,7 +49,11 @@ export default function (state = initialState, { type, payload }) {
     case LOGIN_FAILURE:
     case GET_USER_FAILURE:
     case LOGOUT_SUCCESS:
-      localStorage.removeItem('token')
+      try {
+        window.localStorage.removeItem('token')
+      } catch (err) {
+        console.log(err)
+      }
 
       return {
         ...state,

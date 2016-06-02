@@ -14,9 +14,13 @@ import {
   GET_USER_FAILURE
 } from 'actions/actions'
 
-const { localStorage } = window
-
-const user = localStorage.getItem('user') && JSON.parse(localStorage.getItem('user')) || {}
+const user = (() => {
+  try {
+    return window.localStorage.getItem('user') && JSON.parse(window.localStorage.getItem('user')) || {}
+  } catch (err) {
+    return {}
+  }
+})()
 
 const initialState = {}
 
@@ -28,7 +32,11 @@ export default function (state = { ...initialState, ...user }, { type, payload }
 
     case LOGIN_SUCCESS:
     case GET_USER_SUCCESS:
-      localStorage.setItem('user', JSON.stringify(payload.user))
+      try {
+        window.localStorage.setItem('user', JSON.stringify(payload.user))
+      } catch (err) {
+        console.log(err)
+      }
 
       return {
         ...state,
@@ -37,7 +45,11 @@ export default function (state = { ...initialState, ...user }, { type, payload }
 
     case GET_USER_FAILURE:
     case LOGOUT_SUCCESS:
-      localStorage.removeItem('user')
+      try {
+        window.localStorage.removeItem('user')
+      } catch (err) {
+        console.log(err)
+      }
 
       return initialState
 

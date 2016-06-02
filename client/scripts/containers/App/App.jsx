@@ -10,7 +10,6 @@
 import './app.scss'
 
 import React, { Component, PropTypes, cloneElement } from 'react'
-import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
 import { loginUser, logoutUser, getUser } from 'actions/actions'

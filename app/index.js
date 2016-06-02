@@ -22,8 +22,6 @@ app.use(logger(logLevel))
 
 app.use('/v1', v1)
 
-app.use('/', express.static(root, { maxage: 31557600 }))
-
 if (dev) {
   const webpack = require('webpack')
   const webpackDevMiddleware = require('webpack-dev-middleware')
@@ -48,6 +46,8 @@ if (dev) {
     }
   })
 } else {
+  app.use('/', express.static(root, { maxage: 31557600 }))
+
   app.use((req, res, next) => {
     if (req.method === 'GET' && req.accepts('html')) {
       res.header('Cache-Control', 'max-age=60, must-revalidate, private')

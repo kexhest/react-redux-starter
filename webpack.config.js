@@ -110,6 +110,7 @@ const config = {
     new webpack.optimize.CommonsChunkPlugin({ names: ['vendor', 'manifest'] }),
     new HtmlWebpackPlugin({
       inject: false,
+      chunksSortMode: 'dependency',
       template: path.resolve(__dirname, 'client', 'index.jade'),
       favicon: path.resolve(__dirname, 'client', 'favicon.ico'),
       filename: 'index.html'

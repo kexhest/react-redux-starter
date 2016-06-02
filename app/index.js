@@ -46,7 +46,7 @@ if (dev) {
     }
   })
 } else {
-  app.use('/', express.static(root, { maxage: 31557600 }))
+  app.use(express.static(root, { maxage: 31557600 }))
 
   app.use((req, res, next) => {
     if (req.method === 'GET' && req.accepts('html')) {

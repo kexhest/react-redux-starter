@@ -1,7 +1,7 @@
 import './field.scss'
 
 import React, { PropTypes, Component } from 'react'
-import { isEqual } from 'lodash/lang'
+import isEqual from 'lodash/isEqual'
 import classNames from 'classnames'
 
 import Checkbox from './Checkbox/Checkbox'

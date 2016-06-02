@@ -18,7 +18,7 @@ import Form from 'components/Form/Form'
  *
  * @author Magnus Bergman <hello@magnus.sexy>
  */
-const Login = ({ legend, fields, submitText, messages, error, sending, loginUser }) =>
+const Login = ({ legend, fields, submitText, messages, error, sending, doLogin }) =>
   <Form
     {...{
       legend,
@@ -28,7 +28,7 @@ const Login = ({ legend, fields, submitText, messages, error, sending, loginUser
       error,
       sending
     }}
-    onSubmit={loginUser}
+    onSubmit={doLogin}
   />
 
 /**
@@ -41,7 +41,7 @@ Login.propTypes = {
   messages: PropTypes.array,
   error: PropTypes.object,
   sending: PropTypes.bool,
-  loginUser: PropTypes.func
+  doLogin: PropTypes.func
 }
 
 /**

@@ -13,7 +13,7 @@ import React, { Component, PropTypes, cloneElement } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
-import * as ActionCreators from 'actions/actions'
+import { loginUser, logoutUser, getUser } from 'actions/actions'
 
 /**
  * This is the App component class.
@@ -39,14 +39,13 @@ export class App extends Component {
    * @return {void}
    */
   componentDidMount () {
-    const { auth } = this.props
-    const { getUser } = this.props.actions
+    const { auth, doGetUser } = this.props
     const { router } = this.context
 
     // Token exists from before, try to fetch user details to see if session is
     // still valid. If not, redirect to login.
     if (auth.isAuthenticated) {
-      getUser(auth.token)
+      doGetUser(auth.token)
         .then(response => {
           if (response.type === 'GET_USER_FAILURE') router.replace('/login')
         })
@@ -78,14 +77,15 @@ export class App extends Component {
    * @return {object}
    */
   render () {
-    const { user, login, children, actions } = this.props
+    const { user, login, children, doLogin, doLogout } = this.props
 
     return (
       <div className='app'>
         {children && cloneElement(children, {
           ...user,
           ...login,
-          ...actions
+          doLogin,
+          doLogout
         })}
       </div>
     )
@@ -131,21 +131,14 @@ const mapStateToProps = state => ({
 })
 
 /**
- * Map action dispatchers to props.
- *
- * @param {object} dispatch
- *
- * @return {object}
- */
-const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators(ActionCreators, dispatch)
-})
-
-/**
  * Export redux container component by subscribing the component to the store
  * and binding necessary action dispatchers.
  */
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  {
+    doLogin: loginUser,
+    doLogout: logoutUser,
+    doGetUser: getUser
+  }
 )(App)

@@ -16,7 +16,7 @@ import React, { PropTypes } from 'react'
  *
  * @author Magnus Bergman <hello@magnus.sexy>
  */
-const Dashboard = ({ id, username, firstName, lastName, doLogout }) =>
+const Dashboard = ({ id, username, firstName, lastName, logoutUser }) =>
   <article className='dashboard'>
     <header>
       <h2>Logged in as:</h2>
@@ -37,7 +37,7 @@ const Dashboard = ({ id, username, firstName, lastName, doLogout }) =>
         </tr>
       </tbody>
     </table>
-    <button onClick={doLogout}>Logout</button>
+    <button onClick={logoutUser}>Logout</button>
   </article>
 
 /**
@@ -48,7 +48,7 @@ Dashboard.propTypes = {
   username: PropTypes.string,
   firstName: PropTypes.string,
   lastName: PropTypes.string,
-  doLogout: PropTypes.func
+  logoutUser: PropTypes.func
 }
 
 /**

@@ -5,12 +5,11 @@ const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
-const production = process.env.NODE_ENV === 'production'
-const dev = !production
+const dev = process.env.NODE_ENV !== 'production'
 
 const config = {
   debug: dev,
-  devtool: dev ? 'cheap-module-eval-source-map' : undefined,
+  devtool: dev ? 'cheap-module-eval-source-map' : 'hidden-source-map',
 
   entry: {
     vendor: [
@@ -37,12 +36,12 @@ const config = {
   },
 
   resolve: {
-    root: [
+    modules: [
       path.resolve(__dirname, 'client', 'scripts'),
-      path.resolve(__dirname, 'client', 'styles')
+      path.resolve(__dirname, 'client', 'styles'),
+      'node_modules'
     ],
     extensions: ['', '.js', '.jsx', '.json', 'scss'],
-    modulesDirectories: ['node_modules'],
     alias: {}
   },
 
@@ -63,7 +62,12 @@ const config = {
       },
       {
         test: /\.(woff|woff2|svg|png|jpg|jpeg|gif|m4a|mp4|webm)$/,
-        loader: 'file?hash=sha512&digest=hex&name=assets/[hash].[ext]&limit=10000'
+        loader: 'file',
+        query: {
+          hash: 'sha512',
+          digest: 'hex',
+          name: 'assets/[hash].[ext]&limit=10000'
+        }
       },
       {
         test: /\.scss$/,
@@ -117,30 +121,23 @@ const config = {
     })
   ].concat(dev
     ? [
-      new webpack.DefinePlugin({
-        'process.env': {
-          'NODE_ENV': JSON.stringify('dev')
-        }
-      }),
-      new webpack.optimize.OccurenceOrderPlugin(),
       new webpack.HotModuleReplacementPlugin(),
       new webpack.NoErrorsPlugin()
     ]
     : [
-      new webpack.DefinePlugin({
-        'process.env': {
-          'NODE_ENV': JSON.stringify('production')
-        }
-      }),
       new webpack.optimize.DedupePlugin(),
-      new webpack.optimize.UglifyJsPlugin({
-        output: { comments: false },
-        mangle: true,
-        compress: {
-          drop_console: true,
-          dead_code: true,
-          warnings: false
-        }
+      // new webpack.optimize.UglifyJsPlugin({
+      //   output: { comments: false },
+      //   mangle: true,
+      //   compress: {
+      //     drop_console: true,
+      //     dead_code: true,
+      //     warnings: false
+      //   }
+      // }),
+      new webpack.LoaderOptionsPlugin({
+        minimize: true,
+        debug: false
       }),
       new ExtractTextPlugin('assets/[contenthash].css')
     ]

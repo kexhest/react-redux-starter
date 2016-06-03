@@ -12,7 +12,7 @@ import './app.scss'
 import React, { Component, PropTypes, cloneElement } from 'react'
 import { connect } from 'react-redux'
 
-import { loginUser, logoutUser, getUser } from 'actions/actions'
+import * as actions from 'actions/actions'
 
 /**
  * This is the App component class.
@@ -38,13 +38,13 @@ export class App extends Component {
    * @return {void}
    */
   componentDidMount () {
-    const { auth, doGetUser } = this.props
+    const { auth, getUser } = this.props
     const { router } = this.context
 
     // Token exists from before, try to fetch user details to see if session is
     // still valid. If not, redirect to login.
     if (auth.isAuthenticated) {
-      doGetUser(auth.token)
+      getUser(auth.token)
         .then(response => {
           if (response.type === 'GET_USER_FAILURE') router.replace('/login')
         })
@@ -76,15 +76,15 @@ export class App extends Component {
    * @return {object}
    */
   render () {
-    const { user, login, children, doLogin, doLogout } = this.props
+    const { user, login, children, loginUser, logoutUser } = this.props
 
     return (
       <div className='app'>
         {children && cloneElement(children, {
           ...user,
           ...login,
-          doLogin,
-          doLogout
+          loginUser,
+          logoutUser
         })}
       </div>
     )
@@ -135,9 +135,5 @@ const mapStateToProps = state => ({
  */
 export default connect(
   mapStateToProps,
-  {
-    doLogin: loginUser,
-    doLogout: logoutUser,
-    doGetUser: getUser
-  }
+  actions
 )(App)

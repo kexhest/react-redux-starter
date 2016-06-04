@@ -12,30 +12,6 @@ const config = {
   debug: dev,
   devtool: dev ? 'cheap-module-eval-source-map' : undefined,
 
-  entry: {
-    vendor: [
-      'classnames',
-      'react',
-      'react-addons-transition-group',
-      'react-addons-update',
-      'react-dom',
-      'react-redux',
-      'react-router',
-      'react-router-redux',
-      'redux',
-      'redux-thunk'
-    ].concat(dev
-      ? ['webpack-hot-middleware/client']
-      : []
-    ),
-    app: [
-      path.resolve(__dirname, 'client', 'entry.js')
-    ].concat(dev
-      ? ['webpack-hot-middleware/client']
-      : []
-    )
-  },
-
   resolve: {
     root: [
       path.resolve(__dirname, 'client', 'scripts'),
@@ -58,10 +34,6 @@ const config = {
         exclude: /(node_modules)/
       },
       {
-        test: /\.jade$/,
-        loader: 'jade'
-      },
-      {
         test: /\.(woff|woff2|svg|png|jpg|jpeg|gif|m4a|mp4|webm)$/,
         loader: 'file?hash=sha512&digest=hex&name=assets/[hash].[ext]&limit=10000'
       },
@@ -72,6 +44,30 @@ const config = {
           : ExtractTextPlugin.extract('style', 'css!postcss!sass')
       }
     ]
+  },
+
+  entry: {
+    vendor: [
+      'classnames',
+      'react',
+      'react-addons-transition-group',
+      'react-addons-update',
+      'react-dom',
+      'react-redux',
+      'react-router',
+      'react-router-redux',
+      'redux',
+      'redux-thunk'
+    ].concat(dev
+      ? ['webpack-hot-middleware/client']
+      : []
+    ),
+    app: [
+      path.resolve(__dirname, 'client', 'entry.js')
+    ].concat(dev
+      ? ['webpack-hot-middleware/client']
+      : []
+    )
   },
 
   output: {
@@ -111,9 +107,15 @@ const config = {
     new HtmlWebpackPlugin({
       inject: false,
       chunksSortMode: 'dependency',
-      template: path.resolve(__dirname, 'client', 'index.jade'),
+      template: path.resolve(__dirname, 'client', 'index.html'),
       favicon: path.resolve(__dirname, 'client', 'favicon.ico'),
-      filename: 'index.html'
+      filename: 'index.html',
+      minify: {
+        removeComments: true,
+        collapseWhitespace: true,
+        minifyJS: true,
+        minifyCSS: true,
+      },
     })
   ].concat(dev
     ? [

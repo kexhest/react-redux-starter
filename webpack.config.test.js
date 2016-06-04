@@ -7,10 +7,11 @@ const config = {
   resolve: {
     modules: [
       path.resolve(__dirname, 'client', 'scripts'),
-      path.resolve(__dirname, 'client', 'styles')
+      path.resolve(__dirname, 'client', 'styles'),
+      'node_modules'
     ],
     extensions: ['', '.js', '.jsx', '.json', 'scss'],
-    modulesDirectories: ['node_modules']
+    alias: {}
   },
 
   module: {

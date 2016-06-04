@@ -25,17 +25,47 @@
     <!-- Twitter Summary card images must be at least 120x120px -->
     <meta name="twitter:image" content="URL of image to use in the card. Image must be less than 1MB in size.">
 
-    <% htmlWebpackPlugin.files.css.forEach(function (filePath) { %>
-      <style>
-        <%= compilation.assets[filePath.substr(htmlWebpackPlugin.files.publicPath.length)].source() %>
-      </style>
-    <% }) %>
+    <% if (htmlWebpackPlugin.options.production) { %>
+      <% htmlWebpackPlugin.files.chunks.style.css.forEach(function (filePath) { %>
+        <style>
+          <%= compilation.assets[filePath.substr(htmlWebpackPlugin.files.publicPath.length)].source() %>
+        </style>
+      <% }) %>
+    <% } %>
   </head>
   <body>
     <div id="root"></div>
 
-    <% htmlWebpackPlugin.files.js.forEach(function (filePath) { %>
-      <script src="<%= filePath %>" defer></script>
-    <% }) %>
+    <% if (htmlWebpackPlugin.options.production) { %>
+      <!-- Optimize css delivery according to https://developers.google.com/speed/docs/insights/OptimizeCSSDelivery -->
+      <noscript id="deferred-styles">
+        <% htmlWebpackPlugin.files.chunks.app.css.forEach(function (filePath) { %>
+          <link rel="stylesheet" href="<%= filePath %>">
+        <% }) %>
+      </noscript>
+      <script>
+        (function (w, d, i, l, a, r, p) {
+          function l () {
+            var a = d.getElementById(i);
+            var p = d.createElement('div');
+            p.innerHTML = a.textContent;
+            d.body.appendChild(p)
+            a.parentElement.removeChild(a);
+          };
+
+          r = requestAnimationFrame || mozRequestAnimationFrame ||
+              webkitRequestAnimationFrame || msRequestAnimationFrame;
+
+          r ? r(function () { w.setTimeout(l, 0); }) : w.addEventListener('load', l);
+        })(window, document, 'deferred-styles');
+      </script>
+      <script src="<%= htmlWebpackPlugin.files.chunks.manifest.entry %>" defer></script>
+      <script src="<%= htmlWebpackPlugin.files.chunks.vendor.entry %>" defer></script>
+      <script src="<%= htmlWebpackPlugin.files.chunks.app.entry %>" defer></script>
+    <% } else { %>
+      <% htmlWebpackPlugin.files.js.forEach(function (filePath) { %>
+        <script src="<%= filePath %>" defer></script>
+      <% }) %>
+    <% } %>
   </body>
 </html>

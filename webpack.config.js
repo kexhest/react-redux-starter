@@ -63,11 +63,17 @@ const config = {
       : []
     ),
     app: [
-      path.resolve(__dirname, 'client', 'entry.js')
+      path.resolve(__dirname, 'client', 'scripts', 'index.js')
     ].concat(dev
       ? ['webpack-hot-middleware/client']
       : []
-    )
+    ),
+    style: [
+      path.resolve(__dirname, 'client', 'styles', 'main.scss')
+    ].concat(dev
+      ? ['webpack-hot-middleware/client']
+      : []
+    ),
   },
 
   output: {
@@ -106,6 +112,7 @@ const config = {
     new webpack.optimize.CommonsChunkPlugin({ names: ['vendor', 'manifest'] }),
     new HtmlWebpackPlugin({
       inject: false,
+      production: !dev,
       chunksSortMode: 'dependency',
       template: path.resolve(__dirname, 'client', 'index.html'),
       favicon: path.resolve(__dirname, 'client', 'favicon.ico'),
@@ -114,7 +121,7 @@ const config = {
         removeComments: true,
         collapseWhitespace: true,
         minifyJS: true,
-        minifyCSS: true,
+        minifyCSS: true
       },
     })
   ].concat(dev

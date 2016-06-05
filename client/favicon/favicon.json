@@ -1,0 +1,40 @@
+{
+  "masterPicture": "client/favicon/favicon.png",
+  "iconsPath": "public",
+  "design": {
+    "ios": {
+      "pictureAspect": "backgroundAndMargin",
+      "backgroundColor": "#ffffff",
+      "margin": "14%",
+      "appName": "React Redux Starter"
+    },
+    "desktopBrowser": {},
+    "windows": {
+      "pictureAspect": "noChange",
+      "backgroundColor": "#00aba9",
+      "onConflict": "override",
+      "appName": "React Redux Starter"
+    },
+    "androidChrome": {
+      "pictureAspect": "backgroundAndMargin",
+      "margin": "17%",
+      "backgroundColor": "#ffffff",
+      "themeColor": "#ffffff",
+      "manifest": {
+        "name": "React Redux Starter",
+        "display": "browser",
+        "orientation": "notSet",
+        "onConflict": "override",
+        "declared": true
+      }
+    },
+    "safariPinnedTab": {
+      "pictureAspect": "silhouette",
+      "themeColor": "#5bbad5"
+    }
+  },
+  "settings": {
+    "scalingAlgorithm": "Bilinear",
+    "errorOnImageTooSmall": false
+  }
+}

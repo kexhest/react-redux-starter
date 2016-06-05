@@ -8,3 +8,5 @@ public
 coverage
 coverage.lcov
 .nyc_output
+
+client/favicon/faviconData.json

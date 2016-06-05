@@ -34,7 +34,10 @@
     "start": "cross-env NODE_ENV=production node app",
     "dev": "cross-env NODE_ENV=development nodemon app -w app",
     "prebuild": "npm run clean -s",
-    "build": "cross-env NODE_ENV=production webpack -p --colors --progress"
+    "build": "cross-env NODE_ENV=production webpack -p --colors --progress",
+    "postbuild": "npm run generate-favicon",
+    "production": "npm run build",
+    "generate-favicon": "real-favicon generate client/favicon/favicon.json client/favicon/faviconData.json public"
   },
   "main": "client/scripts/entry.js",
   "files": [
@@ -86,6 +89,7 @@
     "babel-preset-stage-1": "^6.5.0",
     "body-parser": "^1.15.1",
     "classnames": "^2.2.5",
+    "cli-real-favicon": "0.0.6",
     "codecov": "^1.0.1",
     "compression": "^1.6.2",
     "cors": "^2.7.1",
@@ -113,6 +117,7 @@
     "nodemon": "^1.9.2",
     "null-loader": "^0.1.1",
     "nyc": "^6.4.4",
+    "offline-plugin": "^3.3.0",
     "postcss": "^5.0.21",
     "postcss-loader": "^0.9.1",
     "raw-loader": "^0.5.1",

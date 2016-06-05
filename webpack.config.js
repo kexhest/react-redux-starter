@@ -4,6 +4,7 @@ const path = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const OfflinePlugin = require('offline-plugin')
 
 const production = process.env.NODE_ENV === 'production'
 const dev = !production
@@ -108,7 +109,6 @@ const config = {
       inject: false,
       chunksSortMode: 'dependency',
       template: path.resolve(__dirname, 'client', 'index.html'),
-      favicon: path.resolve(__dirname, 'client', 'favicon.ico'),
       filename: 'index.html',
       minify: {
         removeComments: true,
@@ -144,7 +144,8 @@ const config = {
           warnings: false
         }
       }),
-      new ExtractTextPlugin('assets/[contenthash].css')
+      new ExtractTextPlugin('assets/[contenthash].css'),
+      new OfflinePlugin(),
     ]
   )
 }

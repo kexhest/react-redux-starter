@@ -12,19 +12,11 @@ const props = {
   onClick: sinon.spy()
 }
 
-let wrapper = null
-
-test.beforeEach(t => {
-  wrapper = shallow(<Message {...props} />)
-})
-
-test.afterEach(t => {
-  props.onClick.reset()
-
-  wrapper = null
-})
+test.afterEach(t => props.onClick.reset())
 
 test('Message renders a <p> tag with class and message from props', t => {
+  const wrapper = shallow(<Message {...props} />)
+
   t.is(wrapper.type(), 'p')
 
   t.true(wrapper.hasClass(props.className))
@@ -32,6 +24,8 @@ test('Message renders a <p> tag with class and message from props', t => {
 })
 
 test('Message takes any function and calls it _once_ when the message is clicked', t => {
+  const wrapper = shallow(<Message {...props} />)
+
   wrapper.simulate('click')
 
   t.true(props.onClick.calledOnce)

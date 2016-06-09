@@ -13,19 +13,10 @@ const props = {
   onClick: sinon.spy()
 }
 
-let wrapper = null
-
-test.beforeEach(t => {
-  wrapper = shallow(<SubmitButton {...props} />)
-})
-
-test.afterEach(t => {
-  props.onClick.reset()
-
-  wrapper = null
-})
+test.afterEach(t => props.onClick.reset())
 
 test('SubmitButton renders a <button type="submit"> with a text that matches props', t => {
+  const wrapper = shallow(<SubmitButton {...props} />)
   t.is(wrapper.type(), 'button')
   t.is(wrapper.prop('type'), 'submit')
 
@@ -34,19 +25,21 @@ test('SubmitButton renders a <button type="submit"> with a text that matches pro
 
 test('SubmitButton renders with a sending class when props.sending is true', t => {
   const sendingProps = { ...props, sending: true }
-  wrapper = shallow(<SubmitButton {...sendingProps} />)
+  const wrapper = shallow(<SubmitButton {...sendingProps} />)
 
   t.true(wrapper.hasClass('sending'))
 })
 
 test('SubmitButton has a disabled class when props.invalid is true', t => {
   const invalidProps = { ...props, invalid: true }
-  wrapper = shallow(<SubmitButton {...invalidProps} />)
+  const wrapper = shallow(<SubmitButton {...invalidProps} />)
 
   t.true(wrapper.hasClass('disabled'))
 })
 
 test('SubmitButton takes any function and calls it _once_ when the button is clicked', t => {
+  const wrapper = shallow(<SubmitButton {...props} />)
+
   wrapper.simulate('click')
 
   t.true(props.onClick.calledOnce)

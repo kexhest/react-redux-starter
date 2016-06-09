@@ -62,30 +62,17 @@ const props = {
   onSubmit: sinon.spy()
 }
 
-let wrapper = null
-let component = null
-
-test.beforeEach(() => {
-  wrapper = shallow(<Form {...props} />)
-  component = wrapper.instance()
-
-  sinon.spy(component, 'validate')
-  sinon.spy(component, 'setError')
-  sinon.spy(component, 'setFieldStatus')
-})
-
-test.afterEach(() => {
-  props.onSubmit.reset()
-
-  wrapper = null
-  component = null
-})
+test.afterEach(() => props.onSubmit.reset())
 
 test('Form renders as a form element', t => {
+  const wrapper = shallow(<Form {...props} />)
+
   t.is(wrapper.type(), 'form')
 })
 
 test('Form renders a legend with text that matches props', t => {
+  const wrapper = shallow(<Form {...props} />)
+
   t.is(wrapper.find('legend').length, 1)
   t.is(wrapper.find('legend').first().text(), props.legend)
 })
@@ -94,11 +81,14 @@ test('Form does not render any legend if it is omitted from props', t => {
   const noLegend = { ...props }
   delete noLegend.legend
 
-  wrapper = shallow(<Form {...noLegend} />)
+  const wrapper = shallow(<Form {...noLegend} />)
+
   t.is(wrapper.find('legend').length, 0)
 })
 
 test('Form renders an error message if error.message is set in props', t => {
+  const wrapperNoError = shallow(<Form {...props} />)
+
   const errorProps = {
     ...props,
     error: {
@@ -106,24 +96,31 @@ test('Form renders an error message if error.message is set in props', t => {
     }
   }
 
-  t.is(wrapper.find(Message).length, 0)
+  t.is(wrapperNoError.find(Message).length, 0)
 
-  wrapper = shallow(<Form {...errorProps} />)
+  const wrapperError = shallow(<Form {...errorProps} />)
 
-  t.is(wrapper.find(Message).length, 1)
+  t.is(wrapperError.find(Message).length, 1)
 })
 
 test('Form renders the same ammount of fields as specified in props', t => {
+  const wrapper = shallow(<Form {...props} />)
+
   t.is(wrapper.find(Field).length, props.fields.length)
 })
 
 test('Form calls props.onSubmit when the form is submitted', t => {
+  const wrapper = shallow(<Form {...props} />)
+
   wrapper.simulate('submit')
 
   t.true(props.onSubmit.calledOnce)
 })
 
 test('Form does not call props.onSubmit if props.sending is true', t => {
+  const wrapper = shallow(<Form {...props} />)
+  const component = wrapper.instance()
+
   wrapper.setProps({ sending: true })
   wrapper.update()
 
@@ -133,7 +130,7 @@ test('Form does not call props.onSubmit if props.sending is true', t => {
 })
 
 test('Form does not call props.onSubmit if there is an error in state.error', t => {
-  wrapper = shallow(
+  const wrapper = shallow(
     <Form
       url={'/success'}
       fields={[
@@ -146,7 +143,7 @@ test('Form does not call props.onSubmit if there is an error in state.error', t 
       ]}
     />
   )
-  component = wrapper.instance()
+  const component = wrapper.instance()
 
   component.onSubmit()
 
@@ -154,6 +151,9 @@ test('Form does not call props.onSubmit if there is an error in state.error', t 
 })
 
 test('Form:onSubmit calls preventDefault and stopPropagation if event is passed', t => {
+  const wrapper = shallow(<Form {...props} />)
+  const component = wrapper.instance()
+
   const event = {
     preventDefault: sinon.spy(),
     stopPropagation: sinon.spy()
@@ -166,6 +166,9 @@ test('Form:onSubmit calls preventDefault and stopPropagation if event is passed'
 })
 
 test('Form calls props.onSubmit with data if not props.sending and no state.error', t => {
+  const wrapper = shallow(<Form {...props} />)
+  const component = wrapper.instance()
+
   component.onSubmit()
 
   t.true(props.onSubmit.calledWith({
@@ -177,6 +180,9 @@ test('Form calls props.onSubmit with data if not props.sending and no state.erro
 })
 
 test('Form:setError updates state.errors', t => {
+  const wrapper = shallow(<Form {...props} />)
+  const component = wrapper.instance()
+
   const errorMessage = 'some message'
 
   component.setError({ select: false })
@@ -189,6 +195,9 @@ test('Form:setError updates state.errors', t => {
 })
 
 test('Form:setFieldStatus updates values in state.form', t => {
+  const wrapper = shallow(<Form {...props} />)
+  const component = wrapper.instance()
+
   const name = props.fields[0].name
   const value = 'some value'
 
@@ -200,6 +209,9 @@ test('Form:setFieldStatus updates values in state.form', t => {
 })
 
 test('Form:setFieldStatus updates errors and validity in state.errors and state.form on error', t => {
+  const wrapper = shallow(<Form {...props} />)
+  const component = wrapper.instance()
+
   const name = props.fields[0].name
   const value = 'some value'
   const errorMessage = 'some error message'
@@ -216,6 +228,9 @@ test('Form:setFieldStatus updates errors and validity in state.errors and state.
 })
 
 test('Form:reset calls preventDefault and stopPropagation if event is passed', t => {
+  const wrapper = shallow(<Form {...props} />)
+  const component = wrapper.instance()
+
   const event = {
     preventDefault: sinon.spy(),
     stopPropagation: sinon.spy()
@@ -228,6 +243,9 @@ test('Form:reset calls preventDefault and stopPropagation if event is passed', t
 })
 
 test('Form:reset resets all form values', t => {
+  const wrapper = shallow(<Form {...props} />)
+  const component = wrapper.instance()
+
   t.is(wrapper.state('form').test.value, props.fields[0].value)
   t.is(wrapper.state('form').test2.value, props.fields[1].value)
 
@@ -249,8 +267,8 @@ test('Form:validate returns false and calls Form:setFieldStatus with error if re
     required: 'EEEEEE'
   }
 
-  wrapper = shallow(<Form {...{ ...props, fields: [field], messages }} />)
-  component = wrapper.instance()
+  const wrapper = shallow(<Form {...{ ...props, fields: [field], messages }} />)
+  const component = wrapper.instance()
   sinon.spy(component, 'setFieldStatus')
 
   const { name, label, value, required } = field
@@ -267,8 +285,8 @@ test('Form:validate returns true and calls Form:setFieldStatus without error if 
     required: false
   }
 
-  wrapper = shallow(<Form {...{ ...props, fields: [field] }} />)
-  component = wrapper.instance()
+  const wrapper = shallow(<Form {...{ ...props, fields: [field] }} />)
+  const component = wrapper.instance()
   sinon.spy(component, 'setFieldStatus')
 
   const { name, label, value, required } = field
@@ -301,8 +319,8 @@ test('Form:validate returns false and calls Form:setFieldStatus with error if va
     email: 'EEEEEE'
   }
 
-  wrapper = shallow(<Form {...{ ...props, fields: [field], messages }} />)
-  component = wrapper.instance()
+  const wrapper = shallow(<Form {...{ ...props, fields: [field], messages }} />)
+  const component = wrapper.instance()
   sinon.spy(component, 'setFieldStatus')
 
   const { name, label, value, required, constraints } = field
@@ -335,8 +353,8 @@ test('Form:validate returns true and calls Form:setFieldStatus without error if 
     email: 'EEEEEE'
   }
 
-  wrapper = shallow(<Form {...{ ...props, fields: [field], messages }} />)
-  component = wrapper.instance()
+  const wrapper = shallow(<Form {...{ ...props, fields: [field], messages }} />)
+  const component = wrapper.instance()
   sinon.spy(component, 'setFieldStatus')
 
   const { name, label, value, required, constraints } = field
@@ -362,8 +380,8 @@ test('Form:validate returns false and calls Form:setFieldStatus with error if va
     confirm: 'EEEEEE'
   }
 
-  wrapper = shallow(<Form {...{ ...props, fields, messages }} />)
-  component = wrapper.instance()
+  const wrapper = shallow(<Form {...{ ...props, fields, messages }} />)
+  const component = wrapper.instance()
   sinon.spy(component, 'setFieldStatus')
 
   const { name, label, value, required, constraints, confirm } = fields[0]
@@ -385,8 +403,8 @@ test('Form:validate returns true and calls Form:setFieldStatus without error if 
     }
   ]
 
-  wrapper = shallow(<Form {...{ ...props, fields }} />)
-  component = wrapper.instance()
+  const wrapper = shallow(<Form {...{ ...props, fields }} />)
+  const component = wrapper.instance()
   sinon.spy(component, 'setFieldStatus')
 
   const { name, label, value, required, constraints, confirm } = fields[0]

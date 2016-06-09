@@ -24,46 +24,41 @@ const props = {
   validate: sinon.spy()
 }
 
-let wrapper = null
-
-test.beforeEach(() => {
-  wrapper = shallow(<Field {...props} />)
-})
-
-test.afterEach(() => {
-  props.validate.reset()
-
-  wrapper = null
-})
+test.afterEach(() => props.validate.reset())
 
 test('Field renders as a div element', t => {
+  const wrapper = shallow(<Field {...props} />)
+
   t.is(wrapper.type(), 'div')
 })
 
 test('Field renders a label that matches the label prop', t => {
+  const wrapper = shallow(<Field {...props} />)
+
   t.is(wrapper.find('label').length, 1)
 
   t.is(wrapper.find('label p').text(), props.label)
 })
 
 test('Field renders correct child component based on type', t => {
-  wrapper = shallow(<Field type='text' />)
-  t.is(wrapper.find(Text).length, 1)
-  t.not(wrapper.find(Select).length, 1)
-  t.not(wrapper.find(Checkbox).length, 1)
+  const wrapperText = shallow(<Field type='text' />)
+  t.is(wrapperText.find(Text).length, 1)
+  t.not(wrapperText.find(Select).length, 1)
+  t.not(wrapperText.find(Checkbox).length, 1)
 
-  wrapper = shallow(<Field type='select' />)
-  t.is(wrapper.find(Select).length, 1)
-  t.not(wrapper.find(Text).length, 1)
-  t.not(wrapper.find(Checkbox).length, 1)
+  const wrapperSelect = shallow(<Field type='select' />)
+  t.is(wrapperSelect.find(Select).length, 1)
+  t.not(wrapperSelect.find(Text).length, 1)
+  t.not(wrapperSelect.find(Checkbox).length, 1)
 
-  wrapper = shallow(<Field type='checkbox' />)
-  t.is(wrapper.find(Checkbox).length, 1)
-  t.not(wrapper.find(Text).length, 1)
-  t.not(wrapper.find(Select).length, 1)
+  const wrapperCheckbox = shallow(<Field type='checkbox' />)
+  t.is(wrapperCheckbox.find(Checkbox).length, 1)
+  t.not(wrapperCheckbox.find(Text).length, 1)
+  t.not(wrapperCheckbox.find(Select).length, 1)
 })
 
 test('Field:onChangeHandler calls props.validate with args', t => {
+  const wrapper = shallow(<Field {...props} />)
   const value = 'some value'
   const { name, label, required, constraints, confirm } = props
 
@@ -73,6 +68,7 @@ test('Field:onChangeHandler calls props.validate with args', t => {
 })
 
 test('Field:onBlurHandler calls props.validate with args', t => {
+  const wrapper = shallow(<Field {...props} />)
   const { name, label, value, required, constraints, confirm } = props
 
   wrapper.instance().onBlurHandler()
@@ -80,8 +76,8 @@ test('Field:onBlurHandler calls props.validate with args', t => {
   t.true(props.validate.calledWith(name, label, value, required, constraints, confirm))
 })
 
-test('Field errors are suppressed when focused', t => {
-  wrapper = shallow(<Field type='text' error={'There was an error'} />)
+test('Field errors are suppressed when onFocusHandler is called', t => {
+  const wrapper = shallow(<Field type='text' error={'There was an error'} />)
 
   t.is(wrapper.state('focus'), false)
   t.is(wrapper.find('.error-message').length, 1)
@@ -94,10 +90,11 @@ test('Field errors are suppressed when focused', t => {
 })
 
 test('Field shows an error message if props.error is passed', t => {
-  t.is(wrapper.find('.error-message').length, 0)
+  const wrapperNoError = shallow(<Field {...props} />)
+  t.is(wrapperNoError.find('.error-message').length, 0)
 
   const error = 'There was an error'
-  wrapper = shallow(<Field type='text' error={error} />)
-  t.is(wrapper.find('.error-message').length, 1)
-  t.is(wrapper.find('.error-message').first().prop('message'), error)
+  const wrapperError = shallow(<Field type='text' error={error} />)
+  t.is(wrapperError.find('.error-message').length, 1)
+  t.is(wrapperError.find('.error-message').first().prop('message'), error)
 })

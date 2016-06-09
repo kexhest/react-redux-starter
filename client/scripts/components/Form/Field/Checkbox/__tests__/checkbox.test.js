@@ -14,19 +14,11 @@ const props = {
   onChange: sinon.spy()
 }
 
-let wrapper = null
-
-test.beforeEach(() => {
-  wrapper = shallow(<Checkbox {...props} />)
-})
-
-test.afterEach(() => {
-  props.onChange.reset()
-
-  wrapper = null
-})
+test.afterEach(() => props.onChange.reset())
 
 test('Checkbox renders an input field with attributes from props', t => {
+  const wrapper = shallow(<Checkbox {...props} />)
+
   const input = wrapper.find('input')
 
   t.is(input.length, 1)
@@ -37,6 +29,8 @@ test('Checkbox renders an input field with attributes from props', t => {
 })
 
 test('Checkbox calls props.onChange when the value is changed', t => {
+  const wrapper = shallow(<Checkbox {...props} />)
+
   const input = wrapper.find('input')
 
   input.simulate('change')
@@ -45,13 +39,15 @@ test('Checkbox calls props.onChange when the value is changed', t => {
 })
 
 test('Checkbox renders without error class if props.error is false', t => {
+  const wrapper = shallow(<Checkbox {...props} />)
+
   t.false(wrapper.hasClass('error'))
 })
 
 test('Checkbox renders with error class if props.error is true', t => {
   const errorProps = { ...props, error: true }
 
-  wrapper = shallow(<Checkbox {...errorProps} />)
+  const wrapper = shallow(<Checkbox {...errorProps} />)
 
   t.true(wrapper.hasClass('error'))
 })

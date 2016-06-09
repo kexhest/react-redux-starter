@@ -18,21 +18,14 @@ const props = {
   onChange: sinon.spy()
 }
 
-let wrapper = null
-
-test.beforeEach(() => {
-  wrapper = shallow(<Text {...props} />)
-})
-
 test.afterEach(() => {
-  wrapper = null
-
   props.onFocus.reset()
   props.onBlur.reset()
   props.onChange.reset()
 })
 
 test('Text renders an input field with attributes from props', t => {
+  const wrapper = shallow(<Text {...props} />)
   const input = wrapper.find('input')
 
   t.is(input.length, 1)
@@ -45,30 +38,34 @@ test('Text renders an input field with attributes from props', t => {
 })
 
 test('Text calls props.onChange when the value is changed', t => {
+  const wrapper = shallow(<Text {...props} />)
   wrapper.find('input').simulate('change')
 
   t.true(props.onChange.calledOnce)
 })
 
 test('Text calls props.onFocus when the input is focused', t => {
+  const wrapper = shallow(<Text {...props} />)
   wrapper.find('input').simulate('focus')
 
   t.true(props.onFocus.calledOnce)
 })
 
 test('Text calls props.onBlur when the input is blurred', t => {
+  const wrapper = shallow(<Text {...props} />)
   wrapper.find('input').simulate('blur')
 
   t.true(props.onBlur.calledOnce)
 })
 
 test('Text renders without error class if props.error is false', t => {
+  const wrapper = shallow(<Text {...props} />)
   t.false(wrapper.find('input').hasClass('error'))
 })
 
 test('Text renders with error class if props.error is true', t => {
   const errorProps = { ...props, error: true }
-  wrapper = shallow(<Text {...errorProps} />)
+  const wrapper = shallow(<Text {...errorProps} />)
 
   t.true(wrapper.find('input').hasClass('error'))
 })

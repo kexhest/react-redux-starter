@@ -14,19 +14,11 @@ const props = {
   logoutUser: sinon.spy()
 }
 
-let wrapper = null
-
-test.beforeEach(() => {
-  wrapper = shallow(<Dashboard {...props} />)
-})
-
-test.afterEach(() => {
-  props.logoutUser.reset()
-
-  wrapper = null
-})
+test.afterEach(() => props.logoutUser.reset())
 
 test('Dashboard renders an article element with a table of user information', t => {
+  const wrapper = shallow(<Dashboard {...props} />)
+
   t.is(wrapper.type(), 'article')
 
   t.is(wrapper.find('.id').text(), props.id.toString())
@@ -35,6 +27,8 @@ test('Dashboard renders an article element with a table of user information', t 
 })
 
 test('Dashboard calls props.logoutUser when the logout button is clicked', t => {
+  const wrapper = shallow(<Dashboard {...props} />)
+
   wrapper.find('button').simulate('click')
 
   t.true(props.logoutUser.calledOnce)

@@ -35,7 +35,6 @@
     "dev": "cross-env NODE_ENV=development nodemon app -w app",
     "prebuild": "npm run clean -s",
     "build": "cross-env NODE_ENV=production webpack -p --colors --progress",
-    "postbuild": "npm run generate-favicon",
     "production": "npm run build",
     "generate-favicon": "real-favicon generate client/favicon/favicon.json client/favicon/faviconData.json public"
   },

@@ -1,17 +1,15 @@
-'use strict'
-
-const express = require('express')
-const cors = require('cors')
-const bodyParser = require('body-parser')
+import express from 'express'
+import cors from 'cors'
+import bodyParser from 'body-parser'
 
 const router = express.Router()
 
-router.use(bodyParser.urlencoded({ extended: false }))
 router.use(bodyParser.json())
+router.use(bodyParser.urlencoded({ extended: false }))
 
 router.use(cors())
 
-const authMiddleware = require('../middleware/authMiddleware')
+import authMiddleware from '../middleware/authMiddleware'
 
 router.use(
   authMiddleware.validateToken()
@@ -25,11 +23,11 @@ router.use(
     })
 )
 
-const authController = require('../controllers/authController')
+import authController from '../controllers/authController'
 router.post('/auth', authController.create)
 router.delete('/auth', authController.destroy)
 
-const usersController = require('../controllers/usersController')
+import usersController from '../controllers/usersController'
 router.get('/users/me', usersController.me)
 
 router.use((req, res) => {

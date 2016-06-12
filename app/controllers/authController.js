@@ -1,28 +1,33 @@
-'use strict'
+import users from '../models/users'
+import { createToken } from '../utils'
 
-const users = require('../models/users')
-const auth = require('../models/auth')
+export default {
+  index () {},
 
-const create = (req, res) => {
-  const user = users.findBy('password', req.body.password)
+  show () {},
 
-  if (user) {
-    res.status(201).json({
-      token: auth.createToken(user),
-      user
+  update () {},
+
+  create (req, res) {
+    const user = users.findBy('password', req.body.password)
+
+    if (user) {
+      res.status(201).json({
+        token: createToken(user),
+        user
+      })
+    } else {
+      res.status(401).json({
+        error: {
+          message: 'Nope!'
+        }
+      })
+    }
+  },
+
+  destroy (req, res) {
+    res.status(200).json({
+      message: 'success'
     })
-  } else {
-    res.status(401).json({error: {message: 'Nope!'}})
   }
-}
-
-const destroy = (req, res) => {
-  res.status(200).json({
-    message: 'success'
-  })
-}
-
-module.exports = {
-  create,
-  destroy
 }

@@ -1,12 +1,13 @@
-'use strict'
+import jwt from 'jsonwebtoken'
 
-const cleanUser = user => ({
+import { secret } from '../config'
+
+export const cleanUser = user => ({
   id: user.id,
   username: user.username,
   firstName: user.firstName,
   lastName: user.lastName
 })
 
-module.exports = {
-  cleanUser
-}
+export const createToken = user =>
+  jwt.sign(user, secret, { expiresIn: 60 * 60 * 5 })

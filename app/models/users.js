@@ -1,24 +1,22 @@
 'use strict'
 
-const users = require('../config').users
-const utils = require('../utils')
+import { users } from '../config'
+import { cleanUser } from '../utils'
 
-const all = () => users
+export default {
+  all () {
+    return users
+  },
 
-const find = id => {
-  const user = users.find(usr => usr.id === id)
+  find (id) {
+    const user = users.find(usr => usr.id === id)
 
-  return user && utils.cleanUser(user)
-}
+    return user && cleanUser(user)
+  },
 
-const findBy = (key, value) => {
-  const user = users.find(usr => usr[key] === value)
+  findBy (key, value) {
+    const user = users.find(usr => usr[key] === value)
 
-  return user && utils.cleanUser(user)
-}
-
-module.exports = {
-  all,
-  find,
-  findBy
+    return user && cleanUser(user)
+  }
 }

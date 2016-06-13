@@ -114,8 +114,8 @@ const config = {
         removeComments: true,
         collapseWhitespace: true,
         minifyJS: true,
-        minifyCSS: true,
-      },
+        minifyCSS: true
+      }
     })
   ].concat(dev
     ? [
@@ -145,7 +145,7 @@ const config = {
         }
       }),
       new ExtractTextPlugin('assets/[contenthash].css'),
-      new OfflinePlugin(),
+      new OfflinePlugin()
     ]
   )
 }

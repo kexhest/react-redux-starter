@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken'
 import unless from 'express-unless'
+import omit from 'lodash/omit'
 
 import { secret } from '../config'
 
@@ -15,8 +16,10 @@ export default {
       jwt.verify(token, secret, (err, user) => {
         if (!err) {
           Object.assign(req, {
-            user,
-            token
+            user: omit(user, ['iat', 'exp']),
+            token: (user.exp - (Date.now() * 0.001) < 60 * 60 * 12)
+              ? jwt.sign(omit(user, ['iat', 'exp']), secret, { expiresIn: 60 * 60 * 24 })
+              : token
           })
 
           return next()

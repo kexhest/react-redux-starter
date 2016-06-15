@@ -1,5 +1,4 @@
 import users from '../models/users'
-import { createToken } from '../utils'
 
 export default {
   index (req, res) {
@@ -8,7 +7,7 @@ export default {
 
   me (req, res) {
     res.status(200).json({
-      token: createToken(req.user),
+      token: req.token,
       user: req.user
     })
   },

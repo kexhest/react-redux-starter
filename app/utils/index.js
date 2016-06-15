@@ -10,4 +10,4 @@ export const cleanUser = user => ({
 })
 
 export const createToken = user =>
-  jwt.sign(user, secret, { expiresIn: 60 * 60 * 5 })
+  jwt.sign(user, secret, { expiresIn: 60 * 60 * 24 })

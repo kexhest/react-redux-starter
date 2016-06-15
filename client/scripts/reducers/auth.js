@@ -10,6 +10,7 @@
 import {
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
+  GET_USER_SUCCESS,
   GET_USER_FAILURE,
   LOGOUT_SUCCESS
 } from 'actions/actions'
@@ -34,6 +35,7 @@ export default function (state = initialState, { type, payload }) {
   switch (type) {
 
     case LOGIN_SUCCESS:
+    case GET_USER_SUCCESS:
       try {
         window.localStorage.setItem('token', payload.token)
       } catch (err) {
